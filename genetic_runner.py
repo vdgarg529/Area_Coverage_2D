@@ -72,26 +72,29 @@ def evaluate(env, chromosome):
         - 2 * overlaps
     )
 
-    return fitness, unique_cells, visit_counts
+    return fitness, unique_cells, visit_counts, total_reward
 
 
 def genetic_search(config):
     env = UAVVictimSearchEnv()
     population = [create_chromosome(config["chromosome_length"]) for _ in range(config["population"])]
-    best_result = {"fitness": 0, "chromosome": None, "visited": None}
+    best_result = {"fitness": 0, "chromosome": None, "visited": None, "victim_count":0}
     for gen in range(config["generations"]):
         fitnesses = []
         visited_snapshots = []
+        victim_Counts_lst = []
         for chrom in population:
-            reward, visited_count, visited = evaluate(env, chrom)
+            reward, visited_count, visited, victim_count = evaluate(env, chrom)
             fitnesses.append(reward + visited_count)
             visited_snapshots.append(visited)
+            victim_Counts_lst.append(victim_count)
         best_idx = np.argmax(fitnesses)
         if fitnesses[best_idx] > best_result["fitness"]:
             best_result.update({
                 "fitness": fitnesses[best_idx],
                 "chromosome": population[best_idx],
-                "visited": visited_snapshots[best_idx]
+                "visited": visited_snapshots[best_idx],
+                "victim_count": victim_Counts_lst[best_idx]
             })
 
         elites = sorted(zip(fitnesses, population), reverse=True)[:config["elitism_count"]]
@@ -134,7 +137,7 @@ def run_all_configs(config_path="Experiment\configurations.json", render_best=Tr
         # })
         results.append({
             "name": config["name"],
-            "victims_found": result["fitness"],
+            "victims_found": result["victim_count"],
             "cells_covered": np.sum(result["visited"] > 0),
             "time_taken": elapsed,
             "visited": result["visited"],  # Heatmap of frequencies now!
