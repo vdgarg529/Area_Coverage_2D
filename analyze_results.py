@@ -19,7 +19,7 @@ def plot_heatmaps(result, name):
     axs[1].set_title("Cell Visit Frequency")
     plt.suptitle(f"Policy Result: {name}")
     plt.tight_layout()
-    plt.savefig(f"Experiment/Results/{name}_heatmap.png")
+    plt.savefig(f"C:\\Users\\vdgar\\OneDrive\Desktop\Experiment\Results\{name}_heatmap.png")
     plt.close()
 
 # def generate_summary_chart(results):
@@ -49,7 +49,7 @@ def generate_summary_chart(results):
 
     print("DEBUG DataFrame:\n", df)  # optional: for inspection
 
-    df.to_csv("Experiment\Results\config_results_summary.csv", index=False)
+    df.to_csv(r"C:\Users\vdgar\OneDrive\Desktop\Gym_Environment\Experiment\Results\config_results_summary.csv", index=False)
 
     df[["Victims Found", "Cells Covered", "Time (ms)"]] = df[["Victims Found", "Cells Covered", "Time (ms)"]].apply(pd.to_numeric)
     df.set_index("Configuration")[["Victims Found", "Cells Covered", "Time (ms)"]].plot(kind="bar", figsize=(10, 6))
@@ -57,7 +57,7 @@ def generate_summary_chart(results):
     plt.title("Comparison of Genetic Algorithm Configurations")
     plt.ylabel("Values")
     plt.tight_layout()
-    plt.savefig("Experiment\Results\config_comparison_chart.png")
+    plt.savefig(r"C:\Users\vdgar\OneDrive\Desktop\Gym_Environment\Experiment\Results\config_comparison_chart.png")
     print("✅ Chart saved as config_comparison_chart.png")
     plt.show()
 

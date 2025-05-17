@@ -38,9 +38,9 @@
     },
     {
         "name": "Config_E",
-        "generations": 40,
+        "generations": 20,
         "population": 35,
-        "chromosome_length": 180,
+        "chromosome_length": 140,
         "crossover_rate": 1.0,
         "mutation_rate": 0.05,
         "elitism_count": 3

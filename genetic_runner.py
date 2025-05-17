@@ -113,7 +113,7 @@ def genetic_search(config):
 def mutate(chromosome, mutation_rate):
     return [(random.choice(ACTION_SPACE), random.choice(ACTION_SPACE)) if random.random() < mutation_rate else gene for gene in chromosome]
 
-def run_all_configs(config_path="Experiment\configurations.json", render_best=True):
+def run_all_configs(config_path=r"C:\Users\vdgar\OneDrive\Desktop\Gym_Environment\Experiment\configurations.json", render_best=True):
     with open(config_path) as f:
         configs = json.load(f)
 
@@ -155,7 +155,7 @@ def run_all_configs(config_path="Experiment\configurations.json", render_best=Tr
 
     # ✅ Render best policy from all configs
     if render_best and overall_best["chromosome"]:
-        with open("Experiment/Results/best_policy.json", "w") as f:
+        with open(r"C:\Users\vdgar\OneDrive\Desktop\Gym_Environment\Experiment\Results\best_policy.json", "w") as f:
             json.dump({
                 "config": overall_best["config"],
                 "fitness": int(overall_best["fitness"]),  # 👈 cast to Python int
@@ -164,7 +164,7 @@ def run_all_configs(config_path="Experiment\configurations.json", render_best=Tr
 
 
         # Save visited map (heatmap) as .npy
-        np.save("Experiment/Results/best_policy_visited.npy", result["visited"])
+        np.save(r"C:\Users\vdgar\OneDrive\Desktop\Gym_Environment\Experiment\Results\best_policy_visited.npy", result["visited"])
 
         print("✅ Best policy saved to 'best_policy.json' and 'best_policy_visited.npy'")
         print(f"\nRendering BEST policy from '{overall_best['config']['name']}' with fitness {overall_best['fitness']}")
